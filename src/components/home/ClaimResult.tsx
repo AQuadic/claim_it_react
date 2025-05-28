@@ -9,7 +9,7 @@ interface ClaimedUiProps {
   onBack: () => void;
 }
 
-const ClaimedUi = ({ result, name, phone, onBack }: ClaimedUiProps) => {
+const ClaimResult = ({ result, name, phone, onBack }: ClaimedUiProps) => {
   const getStatusConfig = (status: CouponStatus) => {
     switch (status) {
       case "claimed":
@@ -104,4 +104,4 @@ const ClaimedUi = ({ result, name, phone, onBack }: ClaimedUiProps) => {
   );
 };
 
-export default ClaimedUi;
+export default ClaimResult;
