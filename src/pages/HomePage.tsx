@@ -1,8 +1,31 @@
-import { motion } from "framer-motion";
-import { Input } from "../components/ui/input";
-import { Label } from "../components/ui/label";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
+import ClaimForm from "../components/home/ClaimForm";
+import ClaimedUi from "../components/home/ClaimedUi";
+
+type STEPS = "form" | "result";
+type CouponStatus = "claimed" | "out_dated" | "used";
 
 const HomePage = () => {
+  const [step, setStep] = useState<STEPS>("form");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [couponStatus, setCouponStatus] = useState<CouponStatus>("claimed");
+
+  const handleSubmit = () => {
+    // Simulate different coupon statuses for demo
+    const statuses: CouponStatus[] = ["claimed", "out_dated", "used"];
+    const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+    setCouponStatus(randomStatus);
+    setStep("result");
+  };
+
+  const handleBack = () => {
+    setStep("form");
+    setName("");
+    setPhone("");
+  };
+
   return (
     <main
       className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 text-gray-900 relative overflow-hidden"
@@ -90,80 +113,51 @@ const HomePage = () => {
           />
         </motion.div>
 
-        {/* Coupon details */}
-        <motion.div
-          className="text-center space-y-3 mb-8"
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
-          <p className="text-sm text-gray-600">Valid till 20th of May</p>
-          <p className="text-sm text-gray-600">
-            For orders from $100 up to $1000
-          </p>
-          <motion.p
-            className="text-sm font-medium text-orange-600"
-            whileHover={{ scale: 1.02 }}
-          >
-            Valid on all products only, but no services
-          </motion.p>
-        </motion.div>
-
-        {/* Form */}
-        <motion.form
-          className="space-y-5"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-        >
-          <motion.div
-            className="space-y-2"
-            whileHover={{ y: -1 }}
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          >
-            <Label htmlFor="name" className="text-sm font-medium text-gray-700">
-              Name
-            </Label>
-            <Input
-              id="name"
-              placeholder="Enter your name"
-              className="bg-white/60 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-orange-400 focus:ring-orange-400/20 h-11"
-            />
-          </motion.div>
-
-          <motion.div
-            className="space-y-2"
-            whileHover={{ y: -1 }}
-            transition={{ type: "spring", stiffness: 400, damping: 25 }}
-          >
-            <Label
-              htmlFor="phone"
-              className="text-sm font-medium text-gray-700"
+        {/* Coupon details - Only show on form step */}
+        <AnimatePresence>
+          {step === "form" && (
+            <motion.div
+              className="text-center space-y-3 mb-8"
+              initial={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
             >
-              Phone
-            </Label>
-            <Input
-              id="phone"
-              placeholder="Enter your phone number"
-              className="bg-white/60 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-orange-400 focus:ring-orange-400/20 h-11"
-            />
-          </motion.div>
+              <p className="text-sm text-gray-600">Valid till 20th of May</p>
+              <p className="text-sm text-gray-600">
+                For orders from $100 up to $1000
+              </p>
+              <motion.p
+                className="text-sm font-medium text-orange-600"
+                whileHover={{ scale: 1.02 }}
+              >
+                Valid on all products only, but no services
+              </motion.p>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-          <motion.button
-            type="submit"
-            className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium py-3 px-6 rounded-lg shadow-sm transition-all duration-200 mt-6"
-            whileHover={{
-              scale: 1.01,
-              boxShadow: "0 4px 20px rgba(249, 115, 22, 0.25)",
-            }}
-            whileTap={{ scale: 0.99 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-          >
-            Claim Coupon
-          </motion.button>
-        </motion.form>
+        {/* Step Content with Animation */}
+        <AnimatePresence mode="wait">
+          {step === "form" && (
+            <ClaimForm
+              key="form"
+              name={name}
+              phone={phone}
+              setName={setName}
+              setPhone={setPhone}
+              onSubmit={handleSubmit}
+            />
+          )}
+          {step === "result" && (
+            <ClaimedUi
+              key="result"
+              name={name}
+              phone={phone}
+              result={couponStatus}
+              onBack={handleBack}
+            />
+          )}
+        </AnimatePresence>
 
         {/* Minimal decorative element */}
         <motion.div
