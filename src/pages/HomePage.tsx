@@ -1,5 +1,6 @@
 "use client";
 
+import Header from "@/components/general/Header";
 import ClaimCard from "@/components/home/ClaimCard";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
@@ -40,6 +41,7 @@ const HomePage = () => {
 
   return (
     <div className="relative">
+      <Header />
       {/* Slider */}
       <div ref={sliderRef} className="keen-slider">
         {items.map((_, i) => (

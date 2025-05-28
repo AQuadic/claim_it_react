@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { useTranslation } from "react-i18next";
 
 interface ClaimFormProps {
   name: string;
@@ -24,6 +25,8 @@ const ClaimForm = ({
     }
   };
 
+  const {t} = useTranslation("home");
+
   return (
     <motion.form
       className="space-y-5"
@@ -39,13 +42,13 @@ const ClaimForm = ({
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
         <Label htmlFor="name" className="text-sm font-medium text-gray-700">
-          Name
+          {t('name')}
         </Label>
         <Input
           id="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Enter your name"
+          placeholder={t('namePlaceholder')}
           className="bg-white/60 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-orange-400 focus:ring-orange-400/20 h-11"
           required
         />
@@ -57,13 +60,13 @@ const ClaimForm = ({
         transition={{ type: "spring", stiffness: 400, damping: 25 }}
       >
         <Label htmlFor="phone" className="text-sm font-medium text-gray-700">
-          Phone
+          {t('phone')}
         </Label>
         <Input
           id="phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          placeholder="Enter your phone number"
+          placeholder={t('phonePlaceholder')}
           className="bg-white/60 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-orange-400 focus:ring-orange-400/20 h-11"
           required
         />
@@ -78,7 +81,7 @@ const ClaimForm = ({
         }}
         whileTap={{ scale: 0.99 }}
       >
-        Claim Coupon
+        {t('claimButton')}
       </motion.button>
     </motion.form>
   );
