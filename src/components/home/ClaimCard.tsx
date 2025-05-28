@@ -78,7 +78,7 @@ const ClaimCard = () => {
             className="text-lg font-medium text-gray-700"
             whileHover={{ scale: 1.02 }}
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center flex-col ">
               <Avatar>
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>I</AvatarFallback>
@@ -95,7 +95,7 @@ const ClaimCard = () => {
             className="text-lg font-medium text-gray-700"
             whileHover={{ scale: 1.02 }}
           >
-            <div className="flex items-center gap-2">
+            <div className="flex items-center flex-col">
               <Avatar>
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>P</AvatarFallback>
