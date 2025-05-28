@@ -2,7 +2,7 @@ import LanguageComp from "./LanguageComp"
 
 const Header = () => {
     return (
-        <div>
+        <div className="container mx-auto">
             <LanguageComp />
         </div>
     )
