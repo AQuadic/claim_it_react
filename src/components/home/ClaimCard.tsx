@@ -62,7 +62,7 @@ const ClaimCard = () => {
 
       {/* Main content container */}
       <motion.div
-        className="relative z-10 bg-white/70 backdrop-blur-xl rounded-2xl p-10 border border-white/40 max-w-sm w-full mx-4"
+        className="relative z-10 bg-white/70 backdrop-blur-xl rounded-2xl p-10 border border-white/40 max-w-sm w-full mx-4 "
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
