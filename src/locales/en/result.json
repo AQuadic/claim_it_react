@@ -1,0 +1,11 @@
+{
+    "claimed": "Coupon Claimed!",
+    "successfullyCalimed": "Successfully claimed",
+    "expired": "Coupon Expired",
+    "couponExpired": "This coupon has expired",
+    "used": "Already Used",
+    "couponUsed": "This coupon has been used",
+    "name": "Name",
+    "phone": "Phone",
+    "tryAnother": "Try Another Coupon"
+}

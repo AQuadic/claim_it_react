@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 type CouponStatus = "claimed" | "out_dated" | "used";
 
@@ -10,28 +11,29 @@ interface ClaimedUiProps {
 }
 
 const ClaimResult = ({ result, name, phone, onBack }: ClaimedUiProps) => {
+  const { t } = useTranslation("result");
   const getStatusConfig = (status: CouponStatus) => {
     switch (status) {
       case "claimed":
         return {
-          title: "Coupon Claimed!",
-          subtitle: "Successfully claimed",
+          title: t('claimed'),
+          subtitle: t('successfullyCalimed'),
           bgColor: "from-green-500 to-emerald-500",
           textColor: "text-green-600",
           icon: "✓",
         };
       case "out_dated":
         return {
-          title: "Coupon Expired",
-          subtitle: "This coupon has expired",
+          title: t('expired'),
+          subtitle: t('couponExpired'),
           bgColor: "from-red-500 to-rose-500",
           textColor: "text-red-600",
           icon: "✕",
         };
       case "used":
         return {
-          title: "Already Used",
-          subtitle: "This coupon has been used",
+          title: t('used'),
+          subtitle: t('couponUsed'),
           bgColor: "from-gray-500 to-slate-500",
           textColor: "text-gray-600",
           icon: "!",
@@ -78,12 +80,12 @@ const ClaimResult = ({ result, name, phone, onBack }: ClaimedUiProps) => {
         transition={{ delay: 0.3, duration: 0.3 }}
       >
         <div className="flex justify-between items-center">
-          <span className="text-sm font-medium text-gray-600">Name</span>
+          <span className="text-sm font-medium text-gray-600">{t('name')}</span>
           <span className="text-sm text-gray-900 font-medium">{name}</span>
         </div>
         <div className="h-px bg-gray-200"></div>
         <div className="flex justify-between items-center">
-          <span className="text-sm font-medium text-gray-600">Phone</span>
+          <span className="text-sm font-medium text-gray-600">{t('phone')}</span>
           <span className="text-sm text-gray-900 font-medium">{phone}</span>
         </div>
       </motion.div>
@@ -98,7 +100,7 @@ const ClaimResult = ({ result, name, phone, onBack }: ClaimedUiProps) => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.3 }}
       >
-        Try Another Coupon
+        {t('tryAnother')}
       </motion.button>
     </motion.div>
   );
