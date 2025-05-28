@@ -1,7 +1,186 @@
-import React from "react";
+import { motion } from "framer-motion";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
 
 const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+    <main
+      className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 text-gray-900 relative overflow-hidden"
+      style={{ fontFamily: "Inter, sans-serif" }}
+    >
+      {/* Subtle background elements */}
+      <div className="absolute inset-0 opacity-30">
+        <motion.div
+          className="absolute top-1/3 right-1/4 w-96 h-96 bg-gradient-to-r from-orange-200 to-amber-200 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.1, 1],
+            x: [0, 20, 0],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/3 left-1/4 w-80 h-80 bg-gradient-to-r from-orange-100 to-yellow-100 rounded-full blur-3xl"
+          animate={{
+            scale: [1.1, 1, 1.1],
+            x: [0, -15, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
+
+      {/* Main content container */}
+      <motion.div
+        className="relative z-10 bg-white/70 backdrop-blur-xl rounded-2xl p-10 border border-white/40 shadow-xl max-w-sm w-full mx-4"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        {/* Header */}
+        <motion.div
+          className="flex items-center justify-center gap-4 mb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <motion.div
+            className="text-lg font-medium text-gray-700"
+            whileHover={{ scale: 1.02 }}
+          >
+            Influencer
+          </motion.div>
+          <motion.div
+            className="w-1 h-1 bg-orange-400 rounded-full"
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+          <motion.div
+            className="text-lg font-medium text-gray-700"
+            whileHover={{ scale: 1.02 }}
+          >
+            Provider
+          </motion.div>
+        </motion.div>
+
+        {/* Coupon code */}
+        <motion.div
+          className="text-center mb-8"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
+          <motion.div
+            className="text-3xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent mb-3"
+            whileHover={{ scale: 1.05 }}
+          >
+            COUPON50
+          </motion.div>
+          <motion.div
+            className="h-px w-16 mx-auto bg-gradient-to-r from-orange-400 to-amber-400"
+            initial={{ width: 0 }}
+            animate={{ width: 64 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+          />
+        </motion.div>
+
+        {/* Coupon details */}
+        <motion.div
+          className="text-center space-y-3 mb-8"
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
+          <p className="text-sm text-gray-600">Valid till 20th of May</p>
+          <p className="text-sm text-gray-600">
+            For orders from $100 up to $1000
+          </p>
+          <motion.p
+            className="text-sm font-medium text-orange-600"
+            whileHover={{ scale: 1.02 }}
+          >
+            Valid on all products only, but no services
+          </motion.p>
+        </motion.div>
+
+        {/* Form */}
+        <motion.form
+          className="space-y-5"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
+        >
+          <motion.div
+            className="space-y-2"
+            whileHover={{ y: -1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+          >
+            <Label htmlFor="name" className="text-sm font-medium text-gray-700">
+              Name
+            </Label>
+            <Input
+              id="name"
+              placeholder="Enter your name"
+              className="bg-white/60 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-orange-400 focus:ring-orange-400/20 h-11"
+            />
+          </motion.div>
+
+          <motion.div
+            className="space-y-2"
+            whileHover={{ y: -1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+          >
+            <Label
+              htmlFor="phone"
+              className="text-sm font-medium text-gray-700"
+            >
+              Phone
+            </Label>
+            <Input
+              id="phone"
+              placeholder="Enter your phone number"
+              className="bg-white/60 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-orange-400 focus:ring-orange-400/20 h-11"
+            />
+          </motion.div>
+
+          <motion.button
+            type="submit"
+            className="w-full bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white font-medium py-3 px-6 rounded-lg shadow-sm transition-all duration-200 mt-6"
+            whileHover={{
+              scale: 1.01,
+              boxShadow: "0 4px 20px rgba(249, 115, 22, 0.25)",
+            }}
+            whileTap={{ scale: 0.99 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+          >
+            Claim Coupon
+          </motion.button>
+        </motion.form>
+
+        {/* Minimal decorative element */}
+        <motion.div
+          className="absolute top-4 right-4 w-2 h-2 bg-orange-400 rounded-full opacity-60"
+          animate={{
+            scale: [1, 1.3, 1],
+            opacity: [0.4, 0.8, 0.4],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.div>
+    </main>
+  );
 };
 
 export default HomePage;
