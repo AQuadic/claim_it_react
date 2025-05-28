@@ -40,7 +40,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="relative">
+    <div className="relative ">
       <Header />
       {/* Slider */}
       <div ref={sliderRef} className="keen-slider">
