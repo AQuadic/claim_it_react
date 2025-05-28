@@ -27,6 +27,12 @@ const ClaimForm = ({
 
   const {t} = useTranslation("home");
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target.value;
+    const validatedInput = input.replace(/\D/g, "");
+    setPhone(validatedInput);
+  };
+
   return (
     <motion.form
       className="space-y-5"
@@ -65,7 +71,7 @@ const ClaimForm = ({
         <Input
           id="phone"
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          onChange={handlePhoneChange}
           placeholder={t('phonePlaceholder')}
           className="bg-white/60 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-orange-400 focus:ring-orange-400/20 h-11"
           required
