@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import ClaimForm from "./ClaimForm";
 import ClaimResult from "./ClaimResult";
 
@@ -77,7 +78,13 @@ const ClaimCard = () => {
             className="text-lg font-medium text-gray-700"
             whileHover={{ scale: 1.02 }}
           >
-            Influencer
+            <div className="flex items-center gap-2">
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>I</AvatarFallback>
+              </Avatar>
+              <span> Influencer</span>
+            </div>
           </motion.div>
           <motion.div
             className="w-1 h-1 bg-orange-400 rounded-full"
@@ -88,7 +95,13 @@ const ClaimCard = () => {
             className="text-lg font-medium text-gray-700"
             whileHover={{ scale: 1.02 }}
           >
-            Provider
+            <div className="flex items-center gap-2">
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>P</AvatarFallback>
+              </Avatar>
+              <span> Provider</span>
+            </div>
           </motion.div>
         </motion.div>
 
