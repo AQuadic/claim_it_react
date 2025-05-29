@@ -1,11 +1,11 @@
-import LanguageComp from "./LanguageComp"
+import LanguageComp from "./LanguageComp";
 
 const Header = () => {
-    return (
-        <div className="container mx-auto">
-            <LanguageComp />
-        </div>
-    )
-}
+  return (
+    <div className=" ">
+      <LanguageComp />
+    </div>
+  );
+};
 
-export default Header
+export default Header;

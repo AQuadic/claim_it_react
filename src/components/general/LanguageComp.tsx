@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Language from "../icons/Language";
 
@@ -31,7 +31,7 @@ const LanguageComp = () => {
 
   return (
     <button
-      className="cursor-pointer flex items-center gap-2 text-electric-blue"
+      className="cursor-pointer flex items-center gap-2 text-electric-blue p-4"
       type="button"
       onClick={toggleLanguage}
     >
