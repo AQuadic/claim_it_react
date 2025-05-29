@@ -85,7 +85,7 @@ const ClaimCard = ({ card }: ClaimCardProps) => {
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center flex-col ">
-              <Avatar className="border border-gray-300">
+              <Avatar className="border border-gray-300  w-12 h-12">
                 <AvatarImage src={card.influencer.image?.url} />
                 <AvatarFallback>
                   {card.influencer.name.charAt(0)}
@@ -104,7 +104,7 @@ const ClaimCard = ({ card }: ClaimCardProps) => {
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center flex-col">
-              <Avatar>
+              <Avatar className="border border-gray-300 w-12 h-12">
                 <AvatarImage src={card.provider.image?.url} />
                 <AvatarFallback>{card.provider.name.charAt(0)} </AvatarFallback>
               </Avatar>
