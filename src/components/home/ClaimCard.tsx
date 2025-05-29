@@ -1,3 +1,4 @@
+import type { CouponTypes } from "@/api/coupons";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -7,7 +8,12 @@ import ClaimResult from "./ClaimResult";
 type STEPS = "form" | "result";
 type CouponStatus = "claimed" | "out_dated" | "used";
 
-const ClaimCard = () => {
+interface ClaimCardProps {
+  card: CouponTypes;
+}
+
+const ClaimCard = ({ card }: ClaimCardProps) => {
+  console.log("Claim Card:", card);
   const [step, setStep] = useState<STEPS>("form");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -79,11 +85,13 @@ const ClaimCard = () => {
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center flex-col ">
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>I</AvatarFallback>
+              <Avatar className="border border-gray-300">
+                <AvatarImage src={card.influencer.image?.url} />
+                <AvatarFallback>
+                  {card.influencer.name.charAt(0)}
+                </AvatarFallback>
               </Avatar>
-              <span> Influencer</span>
+              <span>{card.influencer.name}</span>
             </div>
           </motion.div>
           <motion.div
@@ -97,10 +105,10 @@ const ClaimCard = () => {
           >
             <div className="flex items-center flex-col">
               <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>P</AvatarFallback>
+                <AvatarImage src={card.provider.image?.url} />
+                <AvatarFallback>{card.provider.name.charAt(0)} </AvatarFallback>
               </Avatar>
-              <span> Provider</span>
+              <span> {card.provider.name}</span>
             </div>
           </motion.div>
         </motion.div>
@@ -116,7 +124,7 @@ const ClaimCard = () => {
             className="text-3xl font-bold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent mb-3"
             whileHover={{ scale: 1.05 }}
           >
-            COUPON50
+            {card.code}
           </motion.div>
           <motion.div
             className="h-px w-16 mx-auto bg-gradient-to-r from-orange-400 to-amber-400"
@@ -135,16 +143,13 @@ const ClaimCard = () => {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-sm text-gray-600">Valid till 20th of May</p>
               <p className="text-sm text-gray-600">
-                For orders from $100 up to $1000
+                Valid till{" "}
+                <span className="bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent font-semibold">
+                  {new Date(card.expire_date).toLocaleDateString()}
+                </span>
               </p>
-              <motion.p
-                className="text-sm font-medium text-orange-600"
-                whileHover={{ scale: 1.02 }}
-              >
-                Valid on all products only, but no services
-              </motion.p>
+              <p className="text-sm text-gray-600">{card.note}</p>
             </motion.div>
           )}
         </AnimatePresence>

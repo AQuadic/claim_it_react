@@ -13,7 +13,6 @@ import { useNavigate, useParams } from "react-router";
 const HomePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const items = [1, 2, 3, 4, 5]; // Replace with your actual claim data
 
   const { data: claimCards, isLoading } = useQuery({
     queryKey: ["claimCards", id],
@@ -35,12 +34,12 @@ const HomePage = () => {
           slides: { perView: 2, spacing: 15 },
         },
         "(min-width: 1024px)": {
-          slides: { perView: items.length === 2 ? 2 : 3, spacing: 20 },
+          slides: { perView: claimCards?.length === 2 ? 2 : 3, spacing: 20 },
         },
       },
       slides: { perView: 1, spacing: 10 },
     },
-    items.length > 1 ? [] : undefined // Disable slider if only 1 item
+    (claimCards?.length ?? 0) > 1 ? [] : undefined // Disable slider if only 1 item
   );
 
   useEffect(() => {
@@ -50,10 +49,10 @@ const HomePage = () => {
   }, [instanceRef]);
 
   // Single card case
-  if (items.length === 1) {
+  if (claimCards?.length === 1) {
     return (
       <div>
-        <ClaimCard />
+        <ClaimCard card={claimCards[0]} />
       </div>
     );
   }
@@ -63,9 +62,9 @@ const HomePage = () => {
       <Header />
       {/* Slider */}
       <div ref={sliderRef} className="keen-slider">
-        {items.map((_, i) => (
+        {claimCards?.map((card, i) => (
           <div key={i} className="keen-slider__slide">
-            <ClaimCard />
+            <ClaimCard card={card} />
           </div>
         ))}
       </div>
@@ -86,7 +85,7 @@ const HomePage = () => {
 
       {/* Dots */}
       <div className="flex justify-center gap-2 mt-4">
-        {items.map((_, idx) => (
+        {claimCards?.map((_, idx) => (
           <button
             key={idx}
             onClick={() => instanceRef.current?.moveToIdx(idx)}
