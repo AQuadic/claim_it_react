@@ -1,14 +1,27 @@
 "use client";
 
+import { getCoupons } from "@/api/coupons";
 import Header from "@/components/general/Header";
 import ClaimCard from "@/components/home/ClaimCard";
+import { useQuery } from "@tanstack/react-query";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
 
 const HomePage = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const items = [1, 2, 3, 4, 5]; // Replace with your actual claim data
+
+  const { data: claimCards, isLoading } = useQuery({
+    queryKey: ["claimCards", id],
+    queryFn: () => getCoupons(id as string),
+    refetchOnWindowFocus: false,
+  });
+
+  console.log("Claim Cards:", claimCards);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
@@ -29,6 +42,12 @@ const HomePage = () => {
     },
     items.length > 1 ? [] : undefined // Disable slider if only 1 item
   );
+
+  useEffect(() => {
+    if (!isLoading && !claimCards) {
+      navigate("/not_found", { replace: true });
+    }
+  }, [instanceRef]);
 
   // Single card case
   if (items.length === 1) {
