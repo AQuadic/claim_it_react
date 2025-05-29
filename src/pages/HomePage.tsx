@@ -63,7 +63,7 @@ const HomePage = () => {
       {/* Slider */}
       <div ref={sliderRef} className="keen-slider">
         {claimCards?.map((card, i) => (
-          <div key={i} className="keen-slider__slide">
+          <div key={i} className="keen-slider__slide bg-transparent">
             <ClaimCard card={card} />
           </div>
         ))}
