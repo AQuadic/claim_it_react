@@ -88,6 +88,7 @@ const SliderSkeletonControls = () => {
 };
 
 const HomePage = () => {
+  const rtl = document.documentElement.dir === "rtl"; // Check if the document is in RTL mode
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: claimCards, isLoading } = useQuery({
@@ -96,11 +97,11 @@ const HomePage = () => {
     refetchOnWindowFocus: false,
   });
 
-  console.log("Claim Cards:", claimCards);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
     {
       loop: true,
+      rtl: rtl,
       slideChanged(slider) {
         setCurrentSlide(slider.track.details.rel);
       },
