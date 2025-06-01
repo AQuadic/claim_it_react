@@ -1,5 +1,7 @@
 import axios from "@/lib/axios";
 
+export type CouponStatusType = "claimed" | "used" | "expired" | "available";
+
 interface ImageTypes {
   file_name: string;
   uuid: string;
@@ -19,7 +21,7 @@ export interface CouponTypes {
   expire_date: string;
   influencer: EntityTypes;
   provider: EntityTypes;
-  status: string;
+  status: CouponStatusType;
 }
 
 export const getCoupons = async (hash: string): Promise<CouponTypes[]> => {

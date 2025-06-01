@@ -1,42 +1,58 @@
+import type { CouponStatusType } from "@/api/coupons";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-
-type CouponStatus = "claimed" | "out_dated" | "used";
 
 interface ClaimedUiProps {
   name: string;
   phone: string;
-  result: CouponStatus;
+  result: CouponStatusType;
   onBack: () => void;
 }
 
-const ClaimResult = ({ result, name, phone, onBack }: ClaimedUiProps) => {
+const ClaimResult = ({ result, name, phone }: ClaimedUiProps) => {
   const { t } = useTranslation("result");
-  const getStatusConfig = (status: CouponStatus) => {
+
+  const getStatusConfig = (status: CouponStatusType) => {
     switch (status) {
       case "claimed":
         return {
-          title: t('claimed'),
-          subtitle: t('successfullyCalimed'),
+          title: t("claimed"),
+          subtitle: t("successfullyCalimed"),
           bgColor: "from-green-500 to-emerald-500",
           textColor: "text-green-600",
           icon: "✓",
         };
-      case "out_dated":
+      case "expired":
         return {
-          title: t('expired'),
-          subtitle: t('couponExpired'),
+          title: t("expired"),
+          subtitle: t("couponExpired"),
           bgColor: "from-red-500 to-rose-500",
           textColor: "text-red-600",
           icon: "✕",
         };
       case "used":
         return {
-          title: t('used'),
-          subtitle: t('couponUsed'),
+          title: t("used"),
+          subtitle: t("couponUsed"),
           bgColor: "from-gray-500 to-slate-500",
           textColor: "text-gray-600",
           icon: "!",
+        };
+      case "available":
+        return {
+          title: t("available"),
+          subtitle: t("couponAvailable"),
+          bgColor: "from-blue-500 to-cyan-500",
+          textColor: "text-blue-600",
+          icon: "◉",
+        };
+      default:
+        return {
+          title: t("unknown"),
+          subtitle: t("unknownStatus"),
+          bgColor: "from-gray-400 to-gray-500",
+          textColor: "text-gray-500",
+          icon: "?",
         };
     }
   };
@@ -79,19 +95,27 @@ const ClaimResult = ({ result, name, phone, onBack }: ClaimedUiProps) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.3 }}
       >
-        <div className="flex justify-between items-center">
-          <span className="text-sm font-medium text-gray-600">{t('name')}</span>
-          <span className="text-sm text-gray-900 font-medium">{name}</span>
-        </div>
-        <div className="h-px bg-gray-200"></div>
-        <div className="flex justify-between items-center">
-          <span className="text-sm font-medium text-gray-600">{t('phone')}</span>
-          <span className="text-sm text-gray-900 font-medium">{phone}</span>
-        </div>
+        {result === "available" && (
+          <>
+            <div className="flex justify-between items-center">
+              <span className="text-sm font-medium text-gray-600">
+                {t("name")}
+              </span>
+              <span className="text-sm text-gray-900 font-medium">{name}</span>
+            </div>
+            <div className="h-px bg-gray-200"></div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm font-medium text-gray-600">
+                {t("phone")}
+              </span>
+              <span className="text-sm text-gray-900 font-medium">{phone}</span>
+            </div>
+          </>
+        )}
       </motion.div>
 
       {/* Action Button */}
-      <motion.button
+      {/* <motion.button
         onClick={onBack}
         className="w-full bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-6 rounded-lg transition-all duration-200"
         whileHover={{ scale: 1.01 }}
@@ -100,8 +124,8 @@ const ClaimResult = ({ result, name, phone, onBack }: ClaimedUiProps) => {
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.3 }}
       >
-        {t('tryAnother')}
-      </motion.button>
+        {t("tryAnother")}
+      </motion.button> */}
     </motion.div>
   );
 };

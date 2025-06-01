@@ -1,29 +1,23 @@
 import type { CouponTypes } from "@/api/coupons";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import ClaimForm from "./ClaimForm";
 import ClaimResult from "./ClaimResult";
 
 type STEPS = "form" | "result";
-type CouponStatus = "claimed" | "out_dated" | "used";
 
 interface ClaimCardProps {
   card: CouponTypes;
 }
 
 const ClaimCard = ({ card }: ClaimCardProps) => {
-  console.log("Claim Card:", card);
   const [step, setStep] = useState<STEPS>("form");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [couponStatus, setCouponStatus] = useState<CouponStatus>("claimed");
 
   const handleSubmit = () => {
     // Simulate different coupon statuses for demo
-    const statuses: CouponStatus[] = ["claimed", "out_dated", "used"];
-    const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-    setCouponStatus(randomStatus);
     setStep("result");
   };
 
@@ -32,6 +26,12 @@ const ClaimCard = ({ card }: ClaimCardProps) => {
     setName("");
     setPhone("");
   };
+
+  useEffect(() => {
+    if (card.status !== "available") {
+      setStep("result");
+    }
+  }, [card]);
 
   return (
     <main
@@ -171,7 +171,7 @@ const ClaimCard = ({ card }: ClaimCardProps) => {
               key="result"
               name={name}
               phone={phone}
-              result={couponStatus}
+              result={card.status}
               onBack={handleBack}
             />
           )}
