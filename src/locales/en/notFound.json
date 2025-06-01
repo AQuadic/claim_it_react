@@ -1,0 +1,7 @@
+{
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Oops! The page you're looking for seems to have wandered off. It might have been moved, deleted, or you entered the wrong URL.",
+    "goBack": "Go Back"
+  }
+}

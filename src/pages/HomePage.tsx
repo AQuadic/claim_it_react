@@ -1,7 +1,6 @@
 "use client";
 
 import { getCoupons } from "@/api/coupons";
-import Header from "@/components/general/Header";
 import ClaimCard from "@/components/home/ClaimCard";
 import { useQuery } from "@tanstack/react-query";
 import "keen-slider/keen-slider.min.css";
@@ -59,7 +58,6 @@ const HomePage = () => {
 
   return (
     <div className="relative ">
-      <Header />
       {/* Slider */}
       <div ref={sliderRef} className="keen-slider">
         {claimCards?.map((card, i) => (

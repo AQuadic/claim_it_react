@@ -10,8 +10,8 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/not_found" replace />} />
           <Route path="/coupons/:id" element={<HomePage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
-        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

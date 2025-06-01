@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const NotFoundPage = () => {
+  const { t, i18n } = useTranslation("notFound");
+  const isRTL = i18n.language === "ar";
+
   const handleGoBack = () => {
     // In a real app, this would use router.back() or navigate(-1)
     window.history.back();
@@ -9,7 +13,8 @@ const NotFoundPage = () => {
   return (
     <main
       className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 text-gray-900 relative overflow-hidden"
-      style={{ fontFamily: "Inter, sans-serif" }}
+      style={{ fontFamily: isRTL ? "Cairo, sans-serif" : "Inter, sans-serif" }}
+      dir={isRTL ? "rtl" : "ltr"}
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 opacity-30">
@@ -88,11 +93,10 @@ const NotFoundPage = () => {
           transition={{ delay: 0.4, duration: 0.5 }}
         >
           <h2 className="text-2xl font-semibold text-gray-800 mb-3">
-            Page Not Found
+            {t("notFound.title")}
           </h2>
           <p className="text-gray-600 leading-relaxed">
-            Oops! The page you're looking for seems to have wandered off. It
-            might have been moved, deleted, or you entered the wrong URL.
+            {t("notFound.description")}
           </p>
         </motion.div>
 
@@ -112,13 +116,15 @@ const NotFoundPage = () => {
             }}
             whileTap={{ scale: 0.98 }}
           >
-            Go Back
+            {t("notFound.goBack")}
           </motion.button>
         </motion.div>
 
         {/* Floating decorative elements */}
         <motion.div
-          className="absolute top-6 right-6 w-3 h-3 bg-orange-400 rounded-full opacity-60"
+          className={`absolute top-6 ${
+            isRTL ? "left-6" : "right-6"
+          } w-3 h-3 bg-orange-400 rounded-full opacity-60`}
           animate={{
             scale: [1, 1.3, 1],
             opacity: [0.4, 0.8, 0.4],
@@ -131,7 +137,9 @@ const NotFoundPage = () => {
         />
 
         <motion.div
-          className="absolute bottom-6 left-6 w-2 h-2 bg-amber-400 rounded-full opacity-50"
+          className={`absolute bottom-6 ${
+            isRTL ? "right-6" : "left-6"
+          } w-2 h-2 bg-amber-400 rounded-full opacity-50`}
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.3, 0.7, 0.3],
@@ -145,7 +153,9 @@ const NotFoundPage = () => {
         />
 
         <motion.div
-          className="absolute top-1/2 right-4 w-1 h-1 bg-orange-300 rounded-full"
+          className={`absolute top-1/2 ${
+            isRTL ? "left-4" : "right-4"
+          } w-1 h-1 bg-orange-300 rounded-full`}
           animate={{
             y: [0, -10, 0],
             opacity: [0.3, 0.8, 0.3],
@@ -161,7 +171,9 @@ const NotFoundPage = () => {
 
       {/* Additional floating elements outside the card */}
       <motion.div
-        className="absolute top-1/4 right-1/3 w-2 h-2 bg-gradient-to-r from-orange-400 to-amber-400 rounded-full opacity-40"
+        className={`absolute top-1/4 ${
+          isRTL ? "left-1/3" : "right-1/3"
+        } w-2 h-2 bg-gradient-to-r from-orange-400 to-amber-400 rounded-full opacity-40`}
         animate={{
           y: [0, -20, 0],
           x: [0, 10, 0],
@@ -175,7 +187,9 @@ const NotFoundPage = () => {
       />
 
       <motion.div
-        className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full opacity-50"
+        className={`absolute bottom-1/4 ${
+          isRTL ? "right-1/3" : "left-1/3"
+        } w-1.5 h-1.5 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full opacity-50`}
         animate={{
           y: [0, 15, 0],
           x: [0, -8, 0],
