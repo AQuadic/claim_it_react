@@ -7,9 +7,10 @@ interface ClaimedUiProps {
   phone: string;
   result: CouponStatusType;
   onBack: () => void;
+  qrcode: string | null;
 }
 
-const ClaimResult = ({ result, name, phone }: ClaimedUiProps) => {
+const ClaimResult = ({ result, name, phone, qrcode }: ClaimedUiProps) => {
   const { t } = useTranslation("result");
 
   const getStatusConfig = (status: CouponStatusType) => {
@@ -74,6 +75,16 @@ const ClaimResult = ({ result, name, phone }: ClaimedUiProps) => {
         animate={{ scale: 1 }}
         transition={{ delay: 0.1, duration: 0.3 }}
       >
+        {qrcode && (
+          <motion.img
+            src={qrcode}
+            alt="QR Code"
+            className="w-24 h-24 mx-auto mb-4 rounded-full"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.3 }}
+          />
+        )}
         <motion.div
           className={`w-16 h-16 mx-auto mb-4 bg-gradient-to-r ${config.bgColor} rounded-full flex items-center justify-center text-white text-2xl font-bold`}
           initial={{ scale: 0 }}
@@ -113,7 +124,6 @@ const ClaimResult = ({ result, name, phone }: ClaimedUiProps) => {
           </>
         )}
       </motion.div>
-
       {/* Action Button */}
       {/* <motion.button
         onClick={onBack}

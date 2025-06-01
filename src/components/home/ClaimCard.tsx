@@ -1,6 +1,7 @@
-import type { CouponTypes } from "@/api/coupons";
+import { claimCoupon, type CouponTypes } from "@/api/coupons";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import ClaimForm from "./ClaimForm";
 import ClaimResult from "./ClaimResult";
@@ -12,13 +13,21 @@ interface ClaimCardProps {
 }
 
 const ClaimCard = ({ card }: ClaimCardProps) => {
+  const { id: hash } = useParams();
+
   const [step, setStep] = useState<STEPS>("form");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [qr, setQr] = useState<string | null>(null);
 
-  const handleSubmit = () => {
-    // Simulate different coupon statuses for demo
-    setStep("result");
+  const handleSubmit = async () => {
+    try {
+      const response = await claimCoupon(card.id, hash as string, name, phone);
+      setQr(response.qrcode);
+      setStep("result");
+    } catch (error) {
+      console.error("Error claiming coupon:", error);
+    }
   };
 
   const handleBack = () => {
@@ -173,6 +182,7 @@ const ClaimCard = ({ card }: ClaimCardProps) => {
               phone={phone}
               result={card.status}
               onBack={handleBack}
+              qrcode={qr}
             />
           )}
         </AnimatePresence>
